@@ -1,5 +1,8 @@
 'use client';
 
+import { useState } from 'react';
+import TokenListModal from './TokenListModal';
+
 interface Token {
   symbol: string;
   address: string;
@@ -13,43 +16,23 @@ interface TokenSelectProps {
   label: string;
 }
 
-const COMMON_TOKENS: Token[] = [
-  {
-    symbol: 'ETH',
-    address: '0x0000000000000000000000000000000000000000',
-    decimals: 18,
-  },
-  {
-    symbol: 'USDC',
-    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-    decimals: 6,
-  },
-  {
-    symbol: 'USDT',
-    address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-    decimals: 6,
-  },
-];
-
 export default function TokenSelect({ selectedToken, onSelect, label }: TokenSelectProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <div className="flex items-center h-[56px]">
+    <div className="flex items-center">
       <button
-        onClick={() => {
-          // In a full implementation, this would open a token selection modal
-          const nextToken = COMMON_TOKENS.find(t => t !== selectedToken) || COMMON_TOKENS[0];
-          onSelect(nextToken);
-        }}
-        className="flex items-center gap-2 py-1.5 px-2 hover:bg-[rgb(232,236,251)] rounded-[20px] transition-colors group"
+        onClick={() => setIsModalOpen(true)}
+        className="flex items-center h-[40px] gap-2 py-1.5 px-2 hover:bg-[rgb(232,236,251)] rounded-[20px] transition-colors group"
       >
         {selectedToken ? (
           <>
-            <div className="flex items-center justify-center w-[36px] h-[36px] rounded-full bg-[rgb(237,238,242)]">
-              <span className="text-lg font-medium text-black">
+            <div className="flex items-center justify-center w-[28px] h-[28px] rounded-full bg-[rgb(237,238,242)]">
+              <span className="text-base font-medium text-black">
                 {selectedToken.symbol.charAt(0)}
               </span>
             </div>
-            <span className="text-[20px] font-medium text-black min-w-[60px]">
+            <span className="text-[18px] font-medium text-black min-w-[40px]">
               {selectedToken.symbol}
             </span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[rgb(119,128,160)] group-hover:text-[rgb(255,0,199)]">
@@ -67,6 +50,13 @@ export default function TokenSelect({ selectedToken, onSelect, label }: TokenSel
           </div>
         )}
       </button>
+
+      <TokenListModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSelect={onSelect}
+        selectedToken={selectedToken}
+      />
     </div>
   );
 }
