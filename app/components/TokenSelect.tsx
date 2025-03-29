@@ -33,25 +33,45 @@ const COMMON_TOKENS: Token[] = [
 
 export default function TokenSelect({ selectedToken, onSelect, label }: TokenSelectProps) {
   return (
-    <div className="w-full">
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-      <div className="relative">
-        <select
-          className="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-          value={selectedToken?.address || ''}
-          onChange={(e) => {
-            const token = COMMON_TOKENS.find(t => t.address === e.target.value);
-            if (token) onSelect(token);
-          }}
-        >
-          <option value="">Select token</option>
-          {COMMON_TOKENS.map((token) => (
-            <option key={token.address} value={token.address}>
-              {token.symbol}
-            </option>
-          ))}
-        </select>
+    <div className="flex flex-col gap-1">
+      <div className="flex justify-between items-center">
+        <span className="text-[14px] text-[rgb(119,128,160)] font-medium">{label}</span>
       </div>
+      <button
+        onClick={() => {
+          // In a full implementation, this would open a token selection modal
+          const nextToken = COMMON_TOKENS.find(t => t !== selectedToken) || COMMON_TOKENS[0];
+          onSelect(nextToken);
+        }}
+        className="group flex items-center gap-1 py-1.5 pl-1 pr-2 rounded-[20px] hover:bg-[rgb(237,238,242)] transition-colors"
+      >
+        {selectedToken ? (
+          <>
+            <div className="flex items-center justify-center w-[36px] h-[36px] rounded-full bg-[rgb(237,238,242)]">
+              <span className="text-lg font-medium text-black">
+                {selectedToken.symbol.charAt(0)}
+              </span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[20px] font-medium text-black">
+                {selectedToken.symbol}
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[rgb(119,128,160)] group-hover:text-[rgb(255,0,199)]">
+                <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </>
+        ) : (
+          <div className="px-2 py-2 font-medium">
+            <span className="text-[rgb(255,0,199)] hover:text-[rgb(255,0,199)] text-base">
+              Select token
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="ml-1 inline text-[rgb(119,128,160)] group-hover:text-[rgb(255,0,199)]">
+              <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        )}
+      </button>
     </div>
   );
 }

@@ -19,64 +19,83 @@ export default function SwapInterface() {
 
   const handleSwap = async () => {
     if (!fromToken || !toToken || !fromAmount) return;
-    
-    // TODO: Implement actual swap logic
     console.log('Swapping', fromAmount, fromToken.symbol, 'to', toToken.symbol);
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-4 space-y-4 bg-white rounded-lg shadow">
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <TokenSelect
-            selectedToken={fromToken}
-            onSelect={setFromToken}
-            label="From"
-          />
-          <input
-            type="number"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            placeholder="0.0"
-            value={fromAmount}
-            onChange={(e) => setFromAmount(e.target.value)}
-          />
-        </div>
+    <div className="w-full max-w-[480px] mx-auto">
+      <div className="p-0.5 rounded-[24px] bg-[rgb(245,246,252)]">
+        <div className="relative rounded-[24px] p-4 bg-white">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-[18px] font-medium text-black">Swap</h2>
+          </div>
+          
+          {/* From token section */}
+          <div className="relative p-4 rounded-2xl bg-[rgb(245,246,252)]">
+            <TokenSelect
+              selectedToken={fromToken}
+              onSelect={setFromToken}
+              label="You pay"
+            />
+            <input
+              type="number"
+              className="w-full bg-transparent text-[36px] font-medium text-black placeholder-[rgba(0,0,0,0.3)] mt-2.5 focus:outline-none"
+              placeholder="0"
+              value={fromAmount}
+              onChange={(e) => setFromAmount(e.target.value)}
+            />
+          </div>
 
-        <button
-          className="mx-auto block text-blue-500"
-          onClick={() => {
-            setFromToken(toToken);
-            setToToken(fromToken);
-            setFromAmount(toAmount);
-            setToAmount(fromAmount);
-          }}
-        >
-          ⇅
-        </button>
+          {/* Swap direction button */}
+          <div className="flex justify-center -my-2.5 relative z-10">
+            <button
+              className="group w-8 h-8 rounded-full bg-white shadow-md hover:shadow-lg transition-all flex items-center justify-center"
+              onClick={() => {
+                setFromToken(toToken);
+                setToToken(fromToken);
+                setFromAmount(toAmount);
+                setToAmount(fromAmount);
+              }}
+            >
+              <div className="flex items-center justify-center w-full h-full rotate-0 group-hover:rotate-180 transition-transform duration-200">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 10L8 14L12 10" stroke="rgb(119,128,160)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 6L8 2L4 6" stroke="rgb(119,128,160)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            </button>
+          </div>
 
-        <div className="space-y-2">
-          <TokenSelect
-            selectedToken={toToken}
-            onSelect={setToToken}
-            label="To"
-          />
-          <input
-            type="number"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            placeholder="0.0"
-            value={toAmount}
-            onChange={(e) => setToAmount(e.target.value)}
-          />
+          {/* To token section */}
+          <div className="relative p-4 rounded-2xl bg-[rgb(245,246,252)]">
+            <TokenSelect
+              selectedToken={toToken}
+              onSelect={setToToken}
+              label="You receive"
+            />
+            <input
+              type="number"
+              className="w-full bg-transparent text-[36px] font-medium text-black placeholder-[rgba(0,0,0,0.3)] mt-2.5 focus:outline-none"
+              placeholder="0"
+              value={toAmount}
+              onChange={(e) => setToAmount(e.target.value)}
+            />
+          </div>
+
+          {/* Swap button */}
+          <button
+            className="w-full mt-4 py-4 px-6 rounded-[12px] text-[16px] font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[rgb(245,246,252)] disabled:text-[rgb(100,100,100)] bg-[rgb(255,0,199)] text-white hover:opacity-[0.85] transition-opacity"
+            disabled={!fromToken || !toToken || !fromAmount || fromAmount === '0'}
+            onClick={handleSwap}
+          >
+            {!fromToken || !toToken 
+              ? 'Select tokens' 
+              : !fromAmount 
+              ? 'Enter an amount' 
+              : 'Swap'}
+          </button>
         </div>
       </div>
-
-      <button
-        className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
-        disabled={!fromToken || !toToken || !fromAmount || fromAmount === '0'}
-        onClick={handleSwap}
-      >
-        Swap
-      </button>
     </div>
   );
 }

@@ -10,15 +10,21 @@ export default function WalletConnect() {
 
   if (isConnected && address) {
     return (
-      <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-700">
-          {address.slice(0, 6)}...{address.slice(-4)}
-        </span>
+      <div className="flex items-center gap-2">
+        <button
+          className="flex items-center px-3 h-[36px] rounded-[20px] bg-[rgb(245,246,252)] hover:bg-[rgb(232,236,251)] transition-colors"
+        >
+          <span className="text-[14px] font-medium text-[rgb(119,128,160)]">
+            {address.slice(0, 6)}...{address.slice(-4)}
+          </span>
+        </button>
         <button
           onClick={() => disconnect()}
-          className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
+          className="flex items-center h-[36px] px-3 rounded-[20px] bg-[rgb(245,246,252)] hover:bg-[rgb(232,236,251)] transition-colors"
         >
-          Disconnect
+          <span className="text-[14px] font-medium text-[rgb(255,0,199)]">
+            Disconnect
+          </span>
         </button>
       </div>
     );
@@ -27,7 +33,7 @@ export default function WalletConnect() {
   return (
     <button
       onClick={() => connect({ connector: injected() })}
-      className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+      className="h-[40px] px-4 rounded-[20px] text-[16px] font-semibold bg-[rgb(255,0,199)] hover:opacity-[0.85] transition-opacity text-white"
     >
       Connect Wallet
     </button>
