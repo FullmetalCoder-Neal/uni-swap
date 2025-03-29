@@ -32,18 +32,25 @@ export default function SwapInterface() {
           
           {/* From token section */}
           <div className="relative p-4 rounded-2xl bg-[rgb(245,246,252)]">
-            <TokenSelect
-              selectedToken={fromToken}
-              onSelect={setFromToken}
-              label="You pay"
-            />
-            <input
-              type="number"
-              className="w-full bg-transparent text-[36px] font-medium text-black placeholder-[rgba(0,0,0,0.3)] mt-2.5 focus:outline-none"
-              placeholder="0"
-              value={fromAmount}
-              onChange={(e) => setFromAmount(e.target.value)}
-            />
+          <div className="flex justify-between items-end gap-2">
+              <div className="flex-1">
+                <span className="text-sm text-[rgb(119,128,160)]">Sell</span>
+                <input
+                  type="number"
+                  className="w-full bg-transparent text-[36px] font-medium text-black placeholder-[rgba(0,0,0,0.3)] mt-2 focus:outline-none"
+                  placeholder="0"
+                  value={fromAmount}
+                  onChange={(e) => setFromAmount(e.target.value)}
+                />
+              </div>
+              <div className="flex-none">
+                <TokenSelect
+                  selectedToken={fromToken}
+                  onSelect={setFromToken}
+                  label=""
+                />
+              </div>
+            </div>
           </div>
 
           {/* Swap direction button */}
@@ -68,18 +75,25 @@ export default function SwapInterface() {
 
           {/* To token section */}
           <div className="relative p-4 rounded-2xl bg-[rgb(245,246,252)]">
-            <TokenSelect
-              selectedToken={toToken}
-              onSelect={setToToken}
-              label="You receive"
-            />
-            <input
-              type="number"
-              className="w-full bg-transparent text-[36px] font-medium text-black placeholder-[rgba(0,0,0,0.3)] mt-2.5 focus:outline-none"
-              placeholder="0"
-              value={toAmount}
-              onChange={(e) => setToAmount(e.target.value)}
-            />
+          <div className="flex justify-between items-end gap-2">
+              <div className="flex-1">
+                <span className="text-sm text-[rgb(119,128,160)]">Buy</span>
+                <input
+                  type="number"
+                  className="w-full bg-transparent text-[36px] font-medium text-black placeholder-[rgba(0,0,0,0.3)] mt-2 focus:outline-none"
+                  placeholder="0"
+                  value={toAmount}
+                  onChange={(e) => setToAmount(e.target.value)}
+                />
+              </div>
+              <div className="flex-none">
+                <TokenSelect
+                  selectedToken={toToken}
+                  onSelect={setToToken}
+                  label=""
+                />
+              </div>
+            </div>
           </div>
 
           {/* Swap button */}

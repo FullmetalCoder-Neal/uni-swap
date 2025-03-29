@@ -33,17 +33,14 @@ const COMMON_TOKENS: Token[] = [
 
 export default function TokenSelect({ selectedToken, onSelect, label }: TokenSelectProps) {
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex justify-between items-center">
-        <span className="text-[14px] text-[rgb(119,128,160)] font-medium">{label}</span>
-      </div>
+    <div className="flex items-center h-[56px]">
       <button
         onClick={() => {
           // In a full implementation, this would open a token selection modal
           const nextToken = COMMON_TOKENS.find(t => t !== selectedToken) || COMMON_TOKENS[0];
           onSelect(nextToken);
         }}
-        className="group flex items-center gap-1 py-1.5 pl-1 pr-2 rounded-[20px] hover:bg-[rgb(237,238,242)] transition-colors"
+        className="flex items-center gap-2 py-1.5 px-2 hover:bg-[rgb(232,236,251)] rounded-[20px] transition-colors group"
       >
         {selectedToken ? (
           <>
@@ -52,21 +49,19 @@ export default function TokenSelect({ selectedToken, onSelect, label }: TokenSel
                 {selectedToken.symbol.charAt(0)}
               </span>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[20px] font-medium text-black">
-                {selectedToken.symbol}
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[rgb(119,128,160)] group-hover:text-[rgb(255,0,199)]">
-                <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
+            <span className="text-[20px] font-medium text-black min-w-[60px]">
+              {selectedToken.symbol}
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[rgb(119,128,160)] group-hover:text-[rgb(255,0,199)]">
+              <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </>
         ) : (
-          <div className="px-2 py-2 font-medium">
-            <span className="text-[rgb(255,0,199)] hover:text-[rgb(255,0,199)] text-base">
+          <div className="flex items-center gap-1 px-3 py-2 bg-[rgb(232,236,251)] rounded-[20px] hover:bg-[rgb(220,224,244)] transition-colors">
+            <span className="text-[16px] font-semibold text-[rgb(255,0,199)]">
               Select token
             </span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="ml-1 inline text-[rgb(119,128,160)] group-hover:text-[rgb(255,0,199)]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[rgb(119,128,160)] group-hover:text-[rgb(255,0,199)]">
               <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>

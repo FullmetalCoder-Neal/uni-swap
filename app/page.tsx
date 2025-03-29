@@ -23,6 +23,11 @@ export default function Home() {
 
       <div className="max-w-[1440px] mx-auto px-4">
         <div className="pt-[68px]">
+        <SwapInterface />
+        </div>
+      </div>
+      {/* <div className="max-w-[1440px] mx-auto px-4">
+        <div className="pt-[68px]">
           {isConnected ? (
             <SwapInterface />
           ) : (
@@ -36,7 +41,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
