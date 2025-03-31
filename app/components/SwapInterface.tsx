@@ -209,8 +209,8 @@ export default function SwapInterface() {
                 </div>
               </div>
             </div>
-            {!(!fromToken || !toToken || !fromAmount || fromAmount === '0' || isCalculatingRoute)
-              && (<div style={{textAlign: 'center'}}>{`${fromToken.symbol} -> ${toToken.symbol}`}</div>)}
+            {!(!fromToken || !toToken || !fromAmount || fromAmount === '0' || isCalculatingRoute || !toAmount)
+              && (<div style={{textAlign: 'center'}}>{`route: ${fromToken.symbol} -> RNB -> ${toToken.symbol}`}</div>)}
 
             {/* Swap button */}
             <button
