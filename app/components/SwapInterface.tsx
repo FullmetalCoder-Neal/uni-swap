@@ -7,6 +7,7 @@ import TokenSelect from './TokenSelect';
 import LoadingOverlay from './LoadingOverlay';
 import { BrowserProvider } from "ethers";
 import { PathSwap__factory, Deployment } from "path-swap-sdk";
+import { text } from 'stream/consumers';
 
 const erc20Abi = [
   {
@@ -80,6 +81,7 @@ export default function SwapInterface() {
       if (calculationTimer) {
         clearTimeout(calculationTimer);
       }
+      setToAmount('');
 
       if (value && fromToken && toToken) {
         setIsCalculatingRoute(true);
@@ -207,6 +209,8 @@ export default function SwapInterface() {
                 </div>
               </div>
             </div>
+            {!(!fromToken || !toToken || !fromAmount || fromAmount === '0' || isCalculatingRoute)
+              && (<div style={{textAlign: 'center'}}>{`${fromToken.symbol} -> ${toToken.symbol}`}</div>)}
 
             {/* Swap button */}
             <button
